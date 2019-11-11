@@ -1,0 +1,36 @@
+{
+  "/api/dashboard/get-my-dashboards": {
+    "dashdash": [
+      {
+        "id": 1,
+        "name": "南京大区数据",
+        "catgory": "我的运营看板"
+      },
+      {
+        "id": 2,
+        "name": "北京大区营运数据",
+        "catgory": "我的运营看板"
+      }
+    ]
+  },
+  "/api/dashboard/get-dashboard-detail": {
+    "id": 1,
+    "name": "南京大区数据",
+    "catgory": "我的运营看板",
+    "author": "张三",
+    "chatrs": [
+      {
+        "id": 1,
+        "index": 3
+      },
+      {
+        "id": 2,
+        "index": 1
+      },
+      {
+        "id": 3,
+        "index": 2
+      }
+    ]
+  }
+}

@@ -2,6 +2,8 @@ const webpack = require('webpack');
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const mock = require('./config/mock');
+
 
 module.exports = {
   entry: {
@@ -19,12 +21,8 @@ module.exports = {
     port: 8000,
     hot: true,
     overlay: true,
-    proxy: {
-      '/api': {
-        target: 'localhost:3000',
-        changeOrigin: true,
-        logLevel: 'debug',
-      }
+    before: function (app, server) {
+      app.use(mock);
     }
   },
   plugins: [
@@ -42,6 +40,11 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin()
   ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src')
+    }
+  },
   module: {
     rules: [
       {
@@ -51,9 +54,22 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        exclude: /\.module\.css$/,
         use: [
           'style-loader',
-          'css-loader'
+          'css-loader',
+        ]
+      },
+      {
+        test: /\.module\.css$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true
+            }
+          },
         ]
       },
       {

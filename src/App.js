@@ -1,21 +1,23 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { memo, useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Layout } from 'antd';
+import Header from './Layout/Header';
+import Slider from './Layout/Slider';
+import Content from './Layout/Content';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+const App = memo(() => {
+  const [menu, setMenu] = useState(null)
+  return (
+    <Router>
+      <Layout style={{ minHeight: '100vh' }}>
+        <Header />
+        <Layout>
+          <Slider setMenu={setMenu} />
+          <Content menu={menu} />
+        </Layout>
+      </Layout>
+    </Router>
+  )
+});
 
 export default App;
