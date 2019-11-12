@@ -21,7 +21,7 @@ module.exports = {
     port: 8000,
     hot: true,
     overlay: true,
-    before: function (app, server) {
+    before: function (app) {
       app.use(mock);
     }
   },

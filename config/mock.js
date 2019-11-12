@@ -4,7 +4,6 @@ const filePath = path.resolve(__dirname, '../mock/');
 
 const mock = (req, res, next) => {
   if (/^\/api/.test(req.path)) {
-    console.log(req.path)
     const pathArr = fs.readdirSync(filePath);
     pathArr.forEach(item => {
       const data = require(filePath + '/' + item);
@@ -16,7 +15,6 @@ const mock = (req, res, next) => {
         }
       })
     })
-
   }
   next();
 }

@@ -1,4 +1,4 @@
-import React, { memo, useLayoutEffect, useState } from 'react';
+import React, { memo, useLayoutEffect, useEffect, useState } from 'react';
 import { Layout, Menu, Icon, Input } from 'antd';
 import { withRouter } from 'react-router-dom'
 import { getMenu } from '@/server/data';
@@ -37,9 +37,9 @@ const Slider = memo(({ setMenu, history }) => {
               <Menu.Item onClick={() => {
                 setMenu(item.name);
                 if (item.id === 1) {
-                  history.push('/')
+                  history.push('/homework')
                 } else {
-                  history.push('Blank')
+                  history.push('/blank')
                 }
               }} key={item.id}>{item.name}</Menu.Item>
             ))

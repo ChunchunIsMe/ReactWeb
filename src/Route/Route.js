@@ -18,8 +18,9 @@ const importAsync = (pathFun) => {
 
 const Rot = () => (
   <Switch>
+    <Route path="/homework" component={importAsync(() => import('@/page/HomeWork'))} />
+    <Route path="/blank" component={importAsync(() => import('@/page/Blank'))} />
     <Route path="/" component={importAsync(() => import('@/page/HomeWork'))} />
-    <Route path="/Blank" component={importAsync(() => import('@/page/Blank'))} />
   </Switch>
 );
 
