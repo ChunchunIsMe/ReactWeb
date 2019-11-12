@@ -1,24 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 const importAsync = (pathFun) => {
-  const Component = () => {
-    const [C, setC] = useState(null)
-    useEffect(() => {
+  class Component extends React.PureComponent {
+    state = {
+      C: null
+    }
+
+    componentDidMount() {
       pathFun().then(item => {
-        setC(item.default);
+        this.setState({
+          C: item.default
+        })
       })
-    }, [])
-    return (
-      C && <C />
-    )
+    }
+    render() {
+      const { C } = this.state;
+      return (
+        C && <C />
+      )
+    }
   }
   return Component;
 }
 
 const Rot = () => (
   <Switch>
-    <Route path="/homework" component={importAsync(() => import('@/page/HomeWork'))} />
+    <Route path="/homework" component={importAsync(() => import('@/page/HomeWork/'))} />
     <Route path="/blank" component={importAsync(() => import('@/page/Blank'))} />
     <Route path="/" component={importAsync(() => import('@/page/HomeWork'))} />
   </Switch>

@@ -1,4 +1,4 @@
-import React, { memo, useLayoutEffect, useEffect, useState } from 'react';
+import React, { memo, useLayoutEffect, useMemo, useState } from 'react';
 import { Layout, Menu, Icon, Input } from 'antd';
 import { withRouter } from 'react-router-dom'
 import { getMenu } from '@/server/data';
@@ -16,7 +16,7 @@ const Slider = memo(({ setMenu, history }) => {
     })
   }, [])
 
-  return (
+  return useMemo(() => (
     <Layout.Sider width={200} style={{ background: '#fff' }}>
       <Menu
         mode="inline"
@@ -47,7 +47,7 @@ const Slider = memo(({ setMenu, history }) => {
         </SubMenu>
       </Menu>
     </Layout.Sider>
-  )
+  ), [data])
 });
 
 
