@@ -17,25 +17,20 @@ const DragHandle = sortableHandle(() => (
 ));
 
 
-const SortableItem = ({ value, outRef, show }) => {
+const SortableItem = ({ value }) => {
   const inside = useRef();
   const outside = useRef();
-  const [size, setSize] = useState({
-    width: 200,
-    height: 200,
+  const [style, setSize] = useState({
     fontSize: '14px'
-  })
-
+  });
   useEffect(() => {
-    outRef(outside);
-    setSize({
-      width: `${outside.current.clientWidth}px`,
-      height: `${outside.current.clientHeight}px`
-    })
-
     let open = false;
     let start = []
     let size = [outside.current.clientWidth, outside.current.clientHeight];
+    const font = (size[0] > size[1] ? size[1] : size[0]) * 14 / 200;
+    setSize({
+      fontSize: font
+    })
     inside.current.addEventListener('mousedown', (e) => {
       size = [outside.current.clientWidth, outside.current.clientHeight];
       start = [e.clientX, e.clientY]
@@ -75,22 +70,13 @@ const SortableItem = ({ value, outRef, show }) => {
         backgroundColor: "white",
         position: 'relative',
         verticalAlign: 'top',
-        ...size
+        ...style
       }}
     >
       <DragHandle style={{ zIndex: 1 }} />
-      {
-        show && (
-          <div style={{ zIndex: 2 }}>
-            {value}
-            <div>
-              <div>123123</div>
-            </div>
-          </div>
-        )
-      }
-
-
+      <div style={{ zIndex: 2 }}>
+        {value}
+      </div>
       <div
         style={{
           width: '15px',
@@ -117,4 +103,4 @@ const SortableItem = ({ value, outRef, show }) => {
 };
 
 // 那个滚动的dom我挂载在React下了哈哈哈懒得去通信了 挂载的地方在src/Layout/Content.js
-export default sortableElement(Lazy(SortableItem, React.contentDom));
+export default sortableElement(SortableItem);

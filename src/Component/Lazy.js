@@ -9,7 +9,7 @@ const Lazy = (Component, runDom) => {
     useEffect(() => {
 
       if (ref) {
-        const dom = ref.current;
+        const dom = ref;
         const check = checkDom(dom);
         if (check) {
           // 如果已经在视口则显示dom
