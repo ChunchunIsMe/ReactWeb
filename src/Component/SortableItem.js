@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { sortableElement, sortableHandle } from 'react-sortable-hoc';
 import { Icon } from 'antd';
+import Lazy from './Lazy';
 
 const DragHandle = sortableHandle(() => (
   <div
@@ -16,15 +17,17 @@ const DragHandle = sortableHandle(() => (
 ));
 
 
-const SortableItem = sortableElement(({ value }) => {
+const SortableItem = ({ value, outRef, show }) => {
   const inside = useRef();
   const outside = useRef();
   const [size, setSize] = useState({
-    width: 0,
-    height: 0
+    width: 200,
+    height: 200,
+    fontSize: '14px'
   })
 
   useEffect(() => {
+    outRef(outside);
     setSize({
       width: `${outside.current.clientWidth}px`,
       height: `${outside.current.clientHeight}px`
@@ -40,11 +43,19 @@ const SortableItem = sortableElement(({ value }) => {
     })
     addEventListener('mousemove', (e) => {
       if (open) {
-        const width = size[0] - (start[0] - e.clientX);
-        const height = size[1] - (start[1] - e.clientY);
+        let width = size[0] - (start[0] - e.clientX);
+        let height = size[1] - (start[1] - e.clientY);
+        if (width <= 200) {
+          width = 200;
+        }
+        if (height <= 200) {
+          height = 200;
+        }
+        const fontSize = (width > height ? height : width) * 14 / 200;
         setSize({
           width: `${width}px`,
-          height: `${height}px`
+          height: `${height}px`,
+          fontSize: `${fontSize}px`
         })
       }
     })
@@ -58,22 +69,27 @@ const SortableItem = sortableElement(({ value }) => {
       ref={outside}
       style={{
         display: 'inline-block',
-        marginRight: '10px',
+        margin: '0 10px 10px 0',
         minWidth: 200,
         minHeight: 200,
         backgroundColor: "white",
         position: 'relative',
-        float: 'left',
+        verticalAlign: 'top',
         ...size
       }}
     >
       <DragHandle style={{ zIndex: 1 }} />
-      <div style={{ zIndex: 2 }}>
-        {value}
-        <div onClick={() => {
-          console.log(123);
-        }}>123123</div>
-      </div>
+      {
+        show && (
+          <div style={{ zIndex: 2 }}>
+            {value}
+            <div>
+              <div>123123</div>
+            </div>
+          </div>
+        )
+      }
+
 
       <div
         style={{
@@ -91,11 +107,14 @@ const SortableItem = sortableElement(({ value }) => {
             position: 'absolute',
             bottom: 0,
             right: 0,
+            fontSize: '14px'
           }}
           type="radius-bottomright"
         />
       </div>
     </div>
   )
-});
-export default SortableItem;
+};
+
+// 那个滚动的dom我挂载在React下了哈哈哈懒得去通信了 挂载的地方在src/Layout/Content.js
+export default sortableElement(Lazy(SortableItem, React.contentDom));

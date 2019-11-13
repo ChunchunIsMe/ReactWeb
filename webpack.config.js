@@ -23,7 +23,8 @@ module.exports = {
     overlay: true,
     before: function (app) {
       app.use(mock);
-    }
+    },
+    historyApiFallback: true
   },
   plugins: [
     new HTMLWebpackPlugin({
