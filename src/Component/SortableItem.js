@@ -17,10 +17,12 @@ const DragHandle = sortableHandle(() => (
 ));
 
 
-const SortableItem = ({ value }) => {
+const SortableItem = ({ value, width, height }) => {
   const inside = useRef();
   const outside = useRef();
   const [style, setSize] = useState({
+    width,
+    height,
     fontSize: '14px'
   });
   useEffect(() => {
@@ -29,6 +31,8 @@ const SortableItem = ({ value }) => {
     let size = [outside.current.clientWidth, outside.current.clientHeight];
     const font = (size[0] > size[1] ? size[1] : size[0]) * 14 / 200;
     setSize({
+      width,
+      height,
       fontSize: font
     })
     inside.current.addEventListener('mousedown', (e) => {
@@ -73,8 +77,8 @@ const SortableItem = ({ value }) => {
         ...style
       }}
     >
-      <DragHandle style={{ zIndex: 1 }} />
-      <div style={{ zIndex: 2 }}>
+      <DragHandle style={{ zIndex: 2 }} />
+      <div style={{ width: '100%', height: '100%', zIndex: 1 }}>
         {value}
       </div>
       <div

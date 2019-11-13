@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SortableContainer from '@/Component/SortableContainer';
 import SortableItem from '@/Component/SortableItem';
-import Item from './component/Item';
+import Block from './component/Block';
 
 
 const HomeWork = () => {
@@ -11,71 +11,71 @@ const HomeWork = () => {
   const data = [
     {
       id: 1,
-      value: <Item value='item1' />
+      value: <Block value='item1' />
     },
     {
       id: 2,
-      value: <Item value='item2' />
+      value: <Block value='item2' />
     },
     {
       id: 3,
-      value: <Item value='item3' />
+      value: <Block value='item3' />
     },
     {
       id: 4,
-      value: <Item value='item4' />
+      value: <Block value='item4' />
     },
     {
       id: 5,
-      value: <Item value='item5' />
+      value: <Block value='item5' />
     },
     {
       id: 6,
-      value: <Item value='item6' />
+      value: <Block value='Block6' />
     },
     {
       id: 7,
-      value: <Item value='item7' />
+      value: <Block value='Block7' />
     },
     {
       id: 8,
-      value: <Item value='item8' />
+      value: <Block value='Block8' />
     },
     {
       id: 9,
-      value: <Item value='item9' />
+      value: <Block value='Block9' />
     },
     {
       id: 10,
-      value: <Item value='item10' />
+      value: <Block value='Block10' />
     },
     {
       id: 11,
-      value: <Item value='item11' />
+      value: <Block value='Block11' />
     },
     {
       id: 12,
-      value: <Item value='item12' />
+      value: <Block value='Block12' />
     },
     {
       id: 13,
-      value: <Item value='item13' />
+      value: <Block value='Block13' />
     },
     {
       id: 14,
-      value: <Item value='item14' />
+      value: <Block value='Block14' />
     },
     {
       id: 15,
-      value: <Item value='item15' />
+      value: <Block value='Block15' />
     },
     {
       id: 16,
-      value: <Item value='item16' />
+      value: <Block value='Block16' />
     },
     {
       id: 17,
-      value: <Item value='item17' />
+      value: <Block value='Block17' />
     },
   ]
   const [items, setItem] = useState(data);
@@ -90,7 +90,7 @@ const HomeWork = () => {
     <>
       <SortableContainer axis='xy' onSortEnd={onSortEnd} useDragHandle>
         {items.map((item, index) => (
-          <SortableItem key={`item-${item.id}`} index={index} value={item.value} />
+          <SortableItem width='21vw' height='15vw' key={`item-${item.id}`} index={index} value={item.value} />
         ))}
       </SortableContainer>
     </>
