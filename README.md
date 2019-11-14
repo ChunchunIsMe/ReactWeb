@@ -3,6 +3,8 @@
 
 运行: `npm run dev`
 
+> 注意：在运行前请先将8000端口空闲或者在`webpack.config.js`中修改`devServer.port`
+
 ## mock
 1. mock中间件: `config/mock.js`
 2. mock数据: mock文件夹下的任意json
