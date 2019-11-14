@@ -11,7 +11,7 @@
 
 ## 拖动排序
 1. 依赖：[react-sortable-hoc](https://github.com/clauderic/react-sortable-hoc 'react-sortable-hoc')
-2. 封装组件：src/Component/SortableContainer.js  src/Component/SortableItem.js
+2. 封装组件：src/Component/SortableContainer.js、src/Component/SortableItem.js
 
 ## 拖动右下角改变元素大小和字体大小
 1. 封装组件：src/Component/SortableItem.js
