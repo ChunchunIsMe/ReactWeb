@@ -8,7 +8,7 @@
 2. mock数据: mock文件夹下的任意json
 
 ## 拖动排序
-1. [react-sortable-hoc](https://github.com/clauderic/react-sortable-hoc 'react-sortable-hoc')
+1. 依赖：[react-sortable-hoc](https://github.com/clauderic/react-sortable-hoc 'react-sortable-hoc')
 2. 封装组件：src/Component/SortableContainer.js  src/Component/SortableItem.js
 
 ## 拖动右下角改变元素大小和字体大小
@@ -17,12 +17,17 @@
 ## 懒加载Dom
 1. 高阶组件：src/Component/Lazy.js
 
+## 布局
+1. 菜单+请求: src/Layout/Slider.js
+2. 头部: src/Layout/Header.js
+3. 内容: src/Layout/Content.js
+
 ## 接口请求
 1. 依赖：axios
 2. request封装：src/util/request.js
 3. request请求写在：src/server/
 
-## 路由懒加载
+## 路由按需加载
 1. 封装组件：src/Route/Route.js
 
 ## 依赖
@@ -31,3 +36,4 @@
 3. [react-router-dom](https://github.com/ReactTraining/react-router 'react-router-dom')
 4. [react-sortable-hoc](https://github.com/clauderic/react-sortable-hoc 'react-sortable-hoc')
 5. [axios](https://github.com/axios/axios 'axios')
+6. [bizcharts](https://github.com/alibaba/BizCharts 'bizcharts')

@@ -12,7 +12,6 @@ const Slider = memo(({ setMenu, history }) => {
   useLayoutEffect(() => {
     getMenu({}).then(res => {
       setData(res.data);
-      setMenu(res.data.dashdash[0].name);
     })
   }, [])
 
@@ -20,7 +19,6 @@ const Slider = memo(({ setMenu, history }) => {
     <Layout.Sider width={200} style={{ background: '#fff' }}>
       <Menu
         mode="inline"
-        defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}
         style={{ height: '100%', borderRight: 0 }}
       >
@@ -37,7 +35,13 @@ const Slider = memo(({ setMenu, history }) => {
               <Menu.Item onClick={() => {
                 setMenu(item.name);
                 if (item.id === 1) {
-                  history.push('/homework')
+                  history.push({
+                    pathname: `/homework`,
+                    query: {
+                      id: item.id
+                    }
+                  })
+                  
                 } else {
                   history.push('/blank')
                 }

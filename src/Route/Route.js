@@ -12,12 +12,14 @@ const importAsync = (pathFun) => {
         this.setState({
           C: item.default
         })
+      }).catch((e) => {
+        console.error(e, 'error')
       })
     }
     render() {
       const { C } = this.state;
       return (
-        C && <C />
+        C && <C {...this.props} />
       )
     }
   }
@@ -26,9 +28,9 @@ const importAsync = (pathFun) => {
 
 const Rot = () => (
   <Switch>
-    <Route path="/homework" component={importAsync(() => import('@/page/HomeWork/'))} />
     <Route path="/blank" component={importAsync(() => import('@/page/Blank'))} />
-    <Route path="/" component={importAsync(() => import('@/page/HomeWork'))} />
+    <Route path="/homework" component={importAsync(() => import('@/page/HomeWork'))} />
+    {/* <Route path="/" component={importAsync(() => import('@/page/HomeWork'))} /> */}
   </Switch>
 );
 

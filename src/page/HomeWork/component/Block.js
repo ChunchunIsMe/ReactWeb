@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { Row, Col, Icon, Card } from 'antd';
 
 const borderStyle = {
@@ -22,24 +22,24 @@ const upStyle = {
   fontSize: '0.85em',
   color: 'rgb(238, 0, 35)'
 }
-const Block = ({ value }) => {
-  return (
+const Block = ({ title, start, end, up, percent, data }) => {
+  return useMemo(() => (
     <div style={borderStyle}>
       <Row>
-        <Col md={21}>小程序流量追踪</Col>
+        <Col md={21}>{title}</Col>
         <Col md={2}><Icon type="line-chart" /></Col>
         <Col md={1}><Icon type="info" /></Col>
       </Row>
-      <Row style={timeStyle}>2019/07/01 - 2019/09/01 , 按日</Row>
-      <Row style={numStyle}>58,846</Row>
+      <Row style={timeStyle}>{start} - {end} , 按日</Row>
+      <Row style={numStyle}>{data}</Row>
       <Row style={upStyle}>
         <Icon type="caret-up" />
-        <span style={{ marginRight: '0.4em' }}>2045</span>
+        <span style={{ marginRight: '0.4em' }}>{up}</span>
         <Icon type="caret-up" />
-        <span>34.5%</span>
+        <span>{percent}</span>
       </Row>
     </div>
-  )
+  ), [title, start, end, up, percent, data])
 }
 
 export default memo(Block)

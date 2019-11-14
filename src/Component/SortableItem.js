@@ -1,7 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useLayoutEffect, useMemo } from 'react';
 import { sortableElement, sortableHandle } from 'react-sortable-hoc';
 import { Icon } from 'antd';
-import Lazy from './Lazy';
 
 const DragHandle = sortableHandle(() => (
   <div
@@ -17,15 +16,17 @@ const DragHandle = sortableHandle(() => (
 ));
 
 
-const SortableItem = ({ value, width, height }) => {
+const SortableItem = ({ value, width, height, childProps }) => {
   const inside = useRef();
   const outside = useRef();
   const [style, setSize] = useState({
     width,
     height,
-    fontSize: '14px'
   });
-  useEffect(() => {
+
+  const Component = useMemo(() => value, [value]);
+
+  useLayoutEffect(() => {
     let open = false;
     let start = []
     let size = [outside.current.clientWidth, outside.current.clientHeight];
@@ -35,11 +36,13 @@ const SortableItem = ({ value, width, height }) => {
       height,
       fontSize: font
     })
+    // 当在右下角鼠标按下，则记录鼠标位置并开启监听
     inside.current.addEventListener('mousedown', (e) => {
       size = [outside.current.clientWidth, outside.current.clientHeight];
       start = [e.clientX, e.clientY]
       open = true;
     })
+    // 鼠标移动如果监听开启，记录鼠标位置并改变字体大小和dom大小
     addEventListener('mousemove', (e) => {
       if (open) {
         let width = size[0] - (start[0] - e.clientX);
@@ -52,12 +55,13 @@ const SortableItem = ({ value, width, height }) => {
         }
         const fontSize = (width > height ? height : width) * 14 / 200;
         setSize({
-          width: `${width}px`,
-          height: `${height}px`,
-          fontSize: `${fontSize}px`
+          width: width,
+          height: height,
+          fontSize: fontSize
         })
       }
     })
+    // 鼠标抬起则关闭监听
     addEventListener('mouseup', () => {
       open = false;
     })
@@ -77,9 +81,9 @@ const SortableItem = ({ value, width, height }) => {
         ...style
       }}
     >
-      <DragHandle style={{ zIndex: 2 }} />
+      <DragHandle style={{ zIndex: 99 }} />
       <div style={{ width: '100%', height: '100%', zIndex: 1 }}>
-        {value}
+        <Component {...childProps} font={style.fontSize} width={style.width} height={style.height} />
       </div>
       <div
         style={{
